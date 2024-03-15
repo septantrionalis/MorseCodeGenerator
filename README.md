@@ -19,7 +19,7 @@ Once you see, "Press return to start" the program is ready to go. Once you press
 ## Configuration File
 **api.ai.key**: The OpenAI Api key. This is needed to generate a random response.\
 **api.ai.textprompt**: The prompt to send to OpenAI. Default: "a lengthy weather report"\
-**api.ai.url**: The api URL of openapi. Default: https://api.openai.com/v1/chat/completions\
+**api.ai.url**: The api URL of openapi. Default: https://api.openai.com/v1/chat/completions \
 **apiapi.ai.model**: The ai model to use. Default: gpt-3.5-turbo\
 **app.wpm**: The WPM to send the morse code. Default: 23. Valid Values: 5 to 30.\
 **app.textsource**: The source from which to generate the text. Default: mock. Valid values are:
