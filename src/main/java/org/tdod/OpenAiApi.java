@@ -9,25 +9,20 @@ import java.net.URL;
 
 public class OpenAiApi {
 
-    private static final String API_URL = "https://api.openai.com/v1/chat/completions";
-    private static final String MODEL = "gpt-3.5-turbo";
-    
     public void ChatGptApi() {
         
     }
     
-    public String generateRandomText() {
-        String prompt = "a lengthy weather report";
-        
+    public String generateRandomText() {       
         try {
-            URL obj = new URL(API_URL);
+            URL obj = new URL(Configuration.getUrl());
             HttpURLConnection connection = (HttpURLConnection) obj.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Authorization", "Bearer " + Configuration.getApiKey());
             connection.setRequestProperty("Content-Type", "application/json");
 
             // The request body
-            String body = "{\"model\": \"" + MODEL + "\", \"messages\": [{\"role\": \"user\", \"content\": \"" + prompt + "\"}]}";
+            String body = "{\"model\": \"" + Configuration.getModel() + "\", \"messages\": [{\"role\": \"user\", \"content\": \"" + Configuration.getTextPrompt() + "\"}]}";
             connection.setDoOutput(true);
             OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
             writer.write(body);

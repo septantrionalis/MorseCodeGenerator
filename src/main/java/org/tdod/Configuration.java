@@ -11,6 +11,9 @@ public class Configuration {
     private static Wpm wpm = Wpm.WPM_23;    
     private static int frequency = 600;
     private static TextSource textSource = TextSource.MOCK;
+    private static String textPrompt = "a lengthy weather report";
+    private static String url = "https://api.openai.com/v1/chat/completions";
+    private static String model = "gpt-3.5-turbo";
     
     private Configuration() {
         
@@ -48,10 +51,37 @@ public class Configuration {
             frequencyConfig.ifPresent(value -> System.out.println("Found app.textsource: " + value));
             frequencyConfig.ifPresent(value -> setTextSource(TextSource.valueOf(value.trim().toUpperCase())));                        
         } catch (NumberFormatException e) {
-            System.out.println("audio.frequency in property file is invalid.");
+            System.out.println("app.textsource in property file is invalid.");
             throw e;
         }
         
+        try {
+            Optional<String> textPromptConfig = Optional.ofNullable(prop.getProperty("api.ai.textprompt"));
+            textPromptConfig.ifPresent(value -> System.out.println("Found api.ai.textprompt: " + value));
+            textPromptConfig.ifPresent(value -> setTextPrompt(value));                        
+        } catch (NumberFormatException e) {
+            System.out.println(" api.ai.textprompt in property file is invalid.");
+            throw e;
+        }
+
+        try {
+            Optional<String> urlConfig = Optional.ofNullable(prop.getProperty("api.ai.url"));
+            urlConfig.ifPresent(value -> System.out.println("Found api.ai.url: " + value));
+            urlConfig.ifPresent(value -> setUrl(value));                        
+        } catch (NumberFormatException e) {
+            System.out.println(" api.ai.textprompt in property file is invalid.");
+            throw e;
+        }
+
+        try {
+            Optional<String> modelConfig = Optional.ofNullable(prop.getProperty("api.ai.model"));
+            modelConfig.ifPresent(value -> System.out.println("Found api.ai.model: " + value));
+            modelConfig.ifPresent(value -> setModel(value));                        
+        } catch (NumberFormatException e) {
+            System.out.println(" api.ai.textprompt in property file is invalid.");
+            throw e;
+        }
+
         
     }
     
@@ -87,7 +117,29 @@ public class Configuration {
         Configuration.textSource = textSource;
     }
 
-     
+    public static String getTextPrompt() {
+        return textPrompt;
+    }
+
+    public static void setTextPrompt(String textPrompt) {
+        Configuration.textPrompt = textPrompt;
+    }
+
+    public static String getUrl() {
+        return url;
+    }
+
+    public static void setUrl(String url) {
+        Configuration.url = url;
+    }
+
+    public static String getModel() {
+        return model;
+    }
+
+    public static void setModel(String model) {
+        Configuration.model = model;
+    }
     
     
 }
