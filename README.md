@@ -9,5 +9,11 @@ Add your OpenAI API key to the config.properties file under "api.ai.key".
 
 ![Screenshot 2024-03-15 at 12 45 56 PM](https://github.com/septantrionalis/MorseCodeGenerator/assets/16886560/30526995-d51a-4982-93a6-afa6996c6226)
 
+"run.sh" or "run.bat" to run.
 
-Your OpenAI API key for this to work.
+You should see :
+
+![Screenshot 2024-03-15 at 12 50 09 PM](https://github.com/septantrionalis/MorseCodeGenerator/assets/16886560/cfab1fc3-5b71-4cbc-b844-b72eb9ceeafb)
+
+With a prompt "<Press return to start>".  Once you press return, a slight delay will happen before the morse code can be heard.
+
