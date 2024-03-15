@@ -1,6 +1,6 @@
 This java application will grab a random weather report from OpenAI and generate the morse code audio from it.
 
-## H2 To Run
+## To Run
 Java 1.8 is required. May work with higher versions, but was coding using Java 1.8.
 Generate an OpenAI key from https://platform.openai.com/api-keys
 Open a terminal or console.
@@ -17,10 +17,10 @@ You should see :
 
 With a prompt "Press return to start".  Once you press return, a slight delay will happen before the morse code can be heard.
 
-## H2 Configuration File
-api.ai.key: The OpenAI Api key. This is needed to generate a random response.
-api.ai.textprompt: The prompt to send to OpenAI. Default: "a lengthy weather report"
-api.ai.url: The api URL of openapi. Default: https://api.openai.com/v1/chat/completions
+## Configuration File
+api.ai.key: The OpenAI Api key. This is needed to generate a random response.\
+api.ai.textprompt: The prompt to send to OpenAI. Default: "a lengthy weather report"\
+api.ai.url: The api URL of openapi. Default: https://api.openai.com/v1/chat/completions\
 apiapi.ai.model: The ai model to use. Default: gpt-3.5-turbo
 app.wpm: The WPM to send the morse code. Default: 23. Valid Values: 5 to 30.
 app.textsource: The source from which to generate the text. Default: mock. Valid values are:
