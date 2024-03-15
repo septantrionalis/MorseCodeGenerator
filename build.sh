@@ -1,4 +1,4 @@
 mvn clean compile assembly:single
-mv ./target/mcgenerator-jar-with-dependencies.jar ./app
-mv ./target/mcgenerator-jar-with-dependencies.jar ./dist
+cp ./target/mcgenerator-jar-with-dependencies.jar ./app
+cp ./target/mcgenerator-jar-with-dependencies.jar ./dist
 
