@@ -17,7 +17,7 @@ public class OpenAiApi {
     }
     
     public String generateRandomText() {
-        String prompt = "a random weather report";
+        String prompt = "a lengthy weather report";
         
         try {
             URL obj = new URL(API_URL);

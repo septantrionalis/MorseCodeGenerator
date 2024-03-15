@@ -50,6 +50,6 @@ public enum Wpm {
     public int getWordPause() {
         return dot * 7;
     }
+
     
-//    tovHSO$J1
 }
