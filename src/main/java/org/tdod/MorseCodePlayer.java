@@ -1,6 +1,12 @@
 package org.tdod;
 
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -39,6 +45,18 @@ public class MorseCodePlayer {
         
     }
     
+    private void saveText(String input) {
+        Format f = new SimpleDateFormat("MMddyy_HHmmss");
+        String strDate = f.format(new Date());
+        
+        String filename = "./history/history_" + strDate + ".txt";
+        try (PrintWriter out = new PrintWriter(filename)) {
+            out.println(input);
+        } catch (Exception e) {
+            System.out.println("Unable to save file history " + filename);
+        }
+    }
+    
     private void run() throws Exception {
         
         System.out.println("Generating random text...");
@@ -52,6 +70,15 @@ public class MorseCodePlayer {
             break;
         case PARIS:
             generatedText = "PARIS ";
+            break;
+        case FILE:
+            String filename = "./history/" + Configuration.getFilename();
+            try {
+                generatedText = new String(Files.readAllBytes(Paths.get(filename)));                
+            } catch (Exception e) {
+                System.out.println("Cannot find the file " + filename);
+                throw new Exception(e);
+            }
             break;
         default:
             throw new RuntimeException("Invalid app.textsource " + Configuration.getTextSource());
@@ -70,14 +97,16 @@ public class MorseCodePlayer {
         System.out.println("Text statistics:");
         printStats(generatedText); 
         
+        saveText(generatedText);
+        
         Scanner scanner = new Scanner(System.in);
         System.out.print("<Press return to start>");
         scanner.nextLine();
         scanner.close();
         
-        System.out.println("Starting in 5 seconds...");
+        System.out.println("Starting in " + Configuration.getStartDelay()+ " seconds...");
         
-        Thread.sleep(5000);
+        Thread.sleep(Configuration.getStartDelay() * 1000);
         
         audioPlayer.play(generatedText);
     }

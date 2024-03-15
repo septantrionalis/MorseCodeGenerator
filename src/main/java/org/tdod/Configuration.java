@@ -14,6 +14,8 @@ public class Configuration {
     private static String textPrompt = "a lengthy weather report";
     private static String url = "https://api.openai.com/v1/chat/completions";
     private static String model = "gpt-3.5-turbo";
+    private static String filename = "history_bookmark.txt";
+    private static int startDelay = 5;
     
     private Configuration() {
         
@@ -50,7 +52,7 @@ public class Configuration {
             Optional<String> frequencyConfig = Optional.ofNullable(prop.getProperty("app.textsource"));
             frequencyConfig.ifPresent(value -> System.out.println("Found app.textsource: " + value));
             frequencyConfig.ifPresent(value -> setTextSource(TextSource.valueOf(value.trim().toUpperCase())));                        
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             System.out.println("app.textsource in property file is invalid.");
             throw e;
         }
@@ -59,8 +61,8 @@ public class Configuration {
             Optional<String> textPromptConfig = Optional.ofNullable(prop.getProperty("api.ai.textprompt"));
             textPromptConfig.ifPresent(value -> System.out.println("Found api.ai.textprompt: " + value));
             textPromptConfig.ifPresent(value -> setTextPrompt(value));                        
-        } catch (NumberFormatException e) {
-            System.out.println(" api.ai.textprompt in property file is invalid.");
+        } catch (Exception e) {
+            System.out.println("api.ai.textprompt in property file is invalid.");
             throw e;
         }
 
@@ -68,8 +70,8 @@ public class Configuration {
             Optional<String> urlConfig = Optional.ofNullable(prop.getProperty("api.ai.url"));
             urlConfig.ifPresent(value -> System.out.println("Found api.ai.url: " + value));
             urlConfig.ifPresent(value -> setUrl(value));                        
-        } catch (NumberFormatException e) {
-            System.out.println(" api.ai.textprompt in property file is invalid.");
+        } catch (Exception e) {
+            System.out.println("api.ai.url in property file is invalid.");
             throw e;
         }
 
@@ -77,8 +79,26 @@ public class Configuration {
             Optional<String> modelConfig = Optional.ofNullable(prop.getProperty("api.ai.model"));
             modelConfig.ifPresent(value -> System.out.println("Found api.ai.model: " + value));
             modelConfig.ifPresent(value -> setModel(value));                        
+        } catch (Exception e) {
+            System.out.println("api.ai.mode in property file is invalid.");
+            throw e;
+        }
+
+        try {
+            Optional<String> filenameConfig = Optional.ofNullable(prop.getProperty("app.filename"));
+            filenameConfig.ifPresent(value -> System.out.println("Found app.filename: " + value));
+            filenameConfig.ifPresent(value -> setFilename(value));                        
+        } catch (Exception e) {
+            System.out.println("app.filename in property file is invalid.");
+            throw e;
+        }
+     
+        try {
+            Optional<String> startDelayConfig = Optional.ofNullable(prop.getProperty("app.startdelay"));
+            startDelayConfig.ifPresent(value -> System.out.println("Found app.startdelay: " + value));
+            startDelayConfig.ifPresent(value -> setStartDelay(Integer.valueOf(value.trim())));            
         } catch (NumberFormatException e) {
-            System.out.println(" api.ai.textprompt in property file is invalid.");
+            System.out.println("app.startdelay in property file is invalid.");
             throw e;
         }
 
@@ -139,6 +159,22 @@ public class Configuration {
 
     public static void setModel(String model) {
         Configuration.model = model;
+    }
+
+    public static String getFilename() {
+        return filename;
+    }
+
+    public static void setFilename(String filename) {
+        Configuration.filename = filename;
+    }
+
+    public static int getStartDelay() {
+        return startDelay;
+    }
+
+    public static void setStartDelay(int startDelay) {
+        Configuration.startDelay = startDelay;
     }
     
     
