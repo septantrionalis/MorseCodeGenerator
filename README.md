@@ -1,11 +1,11 @@
 This java application will grab a random weather report from OpenAI and generate the morse code audio from it.
 
 ## To Run
-Java 1.8 is required. May work with higher versions, but was coding using Java 1.8.
-Generate an OpenAI key from https://platform.openai.com/api-keys
-Open a terminal or console.
-Go into the "dist" directory,
-Add your OpenAI API key to the config.properties file under "api.ai.key".
+Java 1.8 is required. May work with higher versions, but was coding using Java 1.8.\
+Generate an OpenAI key from https://platform.openai.com/api-keys\
+Open a terminal or console.\
+Go into the "dist" directory,\
+Add your OpenAI API key to the config.properties file under "api.ai.key".\
 
 ![Screenshot 2024-03-15 at 12 45 56 PM](https://github.com/septantrionalis/MorseCodeGenerator/assets/16886560/30526995-d51a-4982-93a6-afa6996c6226)
 
@@ -31,7 +31,7 @@ With a prompt "Press return to start".  Once you press return, a slight delay wi
 
 **app.filename**: used when "app.textsource" property file is set to file. This is the file to read from. Default: space_weather.txt\
 **app.startdelay**: The number of seconds to delay sending morse code after hitting return. Default: 5\
-**audio.frequency**: The audio frequency. Default: 600\
+**audio.frequency**: The audio frequency. Default: 600
 
 ## Notes
 Any generated text is saved in the "history" directory as the filename history_MMddyy_HHmmss.txt. This allows you to replay the text if you need to adjust the tone, wpm, etc. Just use the "app.textsource=file" and "app.filename=history_MMddyy_HHmmss.txt" as outlined above.\
