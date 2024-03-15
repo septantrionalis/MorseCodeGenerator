@@ -79,8 +79,11 @@ public class AudioPlayer {
             long end = System.currentTimeMillis();
             float sec = (end - start) / 1000F;
             System.out.println();
-            System.out.println("TIME = " + sec);
-            System.out.println("WPM = " + 60 / sec);
+            System.out.println("TIME = " + sec + " seconds.");
+            
+            if (Configuration.getTextSource().equals(TextSource.PARIS)) {
+                System.out.println("WPM = " + 60 / sec);                
+            }
         }
 
         line.stop();
