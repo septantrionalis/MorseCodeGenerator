@@ -18,7 +18,7 @@ You should see :
 With a prompt "Press return to start".  Once you press return, a slight delay will happen before the morse code can be heard.
 
 ## Configuration File
-api.ai.key: The OpenAI Api key. This is needed to generate a random response.\
+**api.ai.key**: The OpenAI Api key. This is needed to generate a random response.\
 api.ai.textprompt: The prompt to send to OpenAI. Default: "a lengthy weather report"\
 api.ai.url: The api URL of openapi. Default: https://api.openai.com/v1/chat/completions\
 apiapi.ai.model: The ai model to use. Default: gpt-3.5-turbo\
