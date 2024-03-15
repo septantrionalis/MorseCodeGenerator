@@ -46,14 +46,16 @@ public class MorseCodePlayer {
     }
     
     private void saveText(String input) {
-        Format f = new SimpleDateFormat("MMddyy_HHmmss");
-        String strDate = f.format(new Date());
-        
-        String filename = "./history/history_" + strDate + ".txt";
-        try (PrintWriter out = new PrintWriter(filename)) {
-            out.println(input);
-        } catch (Exception e) {
-            System.out.println("Unable to save file history " + filename);
+        if (!Configuration.getTextSource().equals(TextSource.FILE)) {
+            Format f = new SimpleDateFormat("MMddyy_HHmmss");
+            String strDate = f.format(new Date());
+            
+            String filename = "./history/history_" + strDate + ".txt";
+            try (PrintWriter out = new PrintWriter(filename)) {
+                out.println(input);
+            } catch (Exception e) {
+                System.out.println("Unable to save file history " + filename);
+            }            
         }
     }
     
