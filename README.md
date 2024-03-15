@@ -6,8 +6,8 @@ Generate an OpenAI key from https://platform.openai.com/api-keys
 Open a terminal or console.
 Go into the "dist" directory,
 Add your OpenAI API key to the config.properties file under "api.ai.key".
-![Screenshot 2024-03-15 at 12 42 16 PM](https://github.com/septantrionalis/MorseCodeGenerator/assets/16886560/8f7335aa-e35b-447e-9c39-9e3ab8ce952f)
 
+![Screenshot 2024-03-15 at 12 45 56 PM](https://github.com/septantrionalis/MorseCodeGenerator/assets/16886560/30526995-d51a-4982-93a6-afa6996c6226)
 
 
 Your OpenAI API key for this to work.
