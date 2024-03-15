@@ -39,8 +39,8 @@ public class MorseCodePlayer {
         Configuration.setApiKey(apiKey);
         
         System.out.println("Generating random text...");
-        // String input = openAiApi.generateRandomText();
-        String input = "PARIS ";
+        String input = openAiApi.generateRandomText();
+        // String input = "PARIS ";
         input = input.toUpperCase();
 
         System.out.println("Generated text:");
