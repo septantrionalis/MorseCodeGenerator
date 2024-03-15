@@ -62,6 +62,10 @@ public class MorseCodePlayer {
         scanner.nextLine();
         scanner.close();
         
+        System.out.println("Starting in 5 seconds...");
+        
+        Thread.sleep(5000);
+        
         audioPlayer.play(generatedText);
     }
     
