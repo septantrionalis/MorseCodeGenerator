@@ -34,5 +34,7 @@ With a prompt "Press return to start".  Once you press return, a slight delay wi
 **audio.frequency**: The audio frequency. Default: 600\
 
 ## Notes
-Any generated text is saved in the "history" directory as the filename history_MMddyy_HHmmss.txt. This allows you to replay the text if you need to adjust the tone, wpm, etc. Just use the "app.textsource=file" and "app.filename=history_MMddyy_HHmmss.txt" as outlined above.
+Any generated text is saved in the "history" directory as the filename history_MMddyy_HHmmss.txt. This allows you to replay the text if you need to adjust the tone, wpm, etc. Just use the "app.textsource=file" and "app.filename=history_MMddyy_HHmmss.txt" as outlined above.\
+\
+Prosigns are not included in this release. Valid values are A-Z, 0-9, comma, period, equal, and question mark.
 
