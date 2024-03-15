@@ -28,6 +28,7 @@ With a prompt "Press return to start".  Once you press return, a slight delay wi
   * file: Generate morse code from a file located in the "history" directory. app.filename will need to be set.
   * paris: Just sent the word "paris". This was used to get morse code timings.
   * mock: A hard coded value used for testing.
+
 **app.filename**: used when "app.textsource" property file is set to file. This is the file to read from. Default: space_weather.txt\
 **app.startdelay**: The number of seconds to delay sending morse code after hitting return. Default: 5\
 **audio.frequency**: The audio frequency. Default: 600\
