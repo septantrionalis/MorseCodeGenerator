@@ -14,7 +14,7 @@ public class Configuration {
     private static String textPrompt = "a lengthy weather report";
     private static String url = "https://api.openai.com/v1/chat/completions";
     private static String model = "gpt-3.5-turbo";
-    private static String filename = "history_bookmark.txt";
+    private static String filename = "space_weather.txt";
     private static int startDelay = 5;
     
     private Configuration() {
