@@ -26,6 +26,12 @@ public class AudioPlayer {
             for (int i = 0; i < toneBuffer.length; i++) {
                 double angle = i / (8000.0 / Configuration.getFrequency()) * 2.0 * Math.PI;
                 toneBuffer[i] = (byte) (Math.sin(angle) * 127.0);
+                
+                // Trying to adjust the tone...
+                if (toneBuffer[i] < -100) toneBuffer[i] = (byte)-100;
+                if (toneBuffer[i] > 100) toneBuffer[i] = (byte)100;
+                
+                System.out.println("ANGLE="+toneBuffer[i]);
             }
             ToneBuffer buffer = new ToneBuffer(toneBuffer);
             toneBuffers.add(buffer);
