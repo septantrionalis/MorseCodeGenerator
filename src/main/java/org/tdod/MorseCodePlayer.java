@@ -29,6 +29,16 @@ public class MorseCodePlayer {
         return lineBuffer.toString();
     }
         
+    private void printStats(String input) {
+        ArrayList<Character> validList = new ArrayList<Character>(morseCodeMap.keySet());
+
+        for (Character c:validList) {
+            Long count = input.chars().filter(num -> num == c).count();
+            System.out.println(c + ":" + count);
+        }
+        
+    }
+    
     private void run() throws Exception {
         
         System.out.println("Generating random text...");
@@ -56,6 +66,9 @@ public class MorseCodePlayer {
         generatedText = getCleanInput(generatedText);
         System.out.println("Cleansed text: ");
         System.out.println(generatedText);
+        
+        System.out.println("Text statistics:");
+        printStats(generatedText); 
         
         Scanner scanner = new Scanner(System.in);
         System.out.print("<Press return to start>");
