@@ -9,26 +9,22 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.SourceDataLine;
 
 public class AudioPlayer {
-
-    Wpm wpm = Configuration.getWpm();
-    
-    private static final int FREQUENCY = 600;
     
     private static List<ToneBuffer> toneBuffers = new ArrayList<>();
     private static final HashMap<Character, String> morseCodeMap = MorseCodeMap.getMap();
 
     public AudioPlayer() {
-        calculateBeep(wpm.getDot()); 
-        calculateBeep(wpm.getDash());
+        calculateBeep(Configuration.getWpm().getDot()); 
+        calculateBeep(Configuration.getWpm().getDash());
 
     }
     
-    public void calculateBeep(int duration) {
+    public void calculateBeep(int duration) {        
         try {
             
             byte[] toneBuffer = new byte[duration * 8];
             for (int i = 0; i < toneBuffer.length; i++) {
-                double angle = i / (8000.0 / FREQUENCY) * 2.0 * Math.PI;
+                double angle = i / (8000.0 / Configuration.getFrequency()) * 2.0 * Math.PI;
                 toneBuffer[i] = (byte) (Math.sin(angle) * 127.0);
             }
             ToneBuffer buffer = new ToneBuffer(toneBuffer);
@@ -52,32 +48,28 @@ public class AudioPlayer {
             for (char c : input.toCharArray()) {
                 String morseCode = morseCodeMap.get(c);
                 if (morseCode != null) {
-                    System.out.print(morseCode + " "); // Print Morse code
-                                                       // representation
+                    System.out.print(c);
                     for (char symbol : morseCode.toCharArray()) {
                         if (symbol == '.') {
                             byte[] toneBuffer = toneBuffers.get(0).getToneBuffer();
                             line.write(toneBuffer, 0, toneBuffer.length);
                             line.drain();
-                            Thread.sleep(wpm.getDot());
+                            Thread.sleep(Configuration.getWpm().getDot());
                         } else if (symbol == '-') {
                             byte[] toneBuffer = toneBuffers.get(1).getToneBuffer();
                             line.write(toneBuffer, 0, toneBuffer.length);
                             line.drain();
-                            Thread.sleep(wpm.getDot());
+                            Thread.sleep(Configuration.getWpm().getDot());
                         } else if (symbol == '/') {
                             try {
-                                Thread.sleep(wpm.getWordPause()); // Pause
-                                                                  // between
-                                                                  // words
+                                Thread.sleep(Configuration.getWpm().getWordPause());
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                         }
                     }
                     try {
-                        Thread.sleep(wpm.getCharPause()); // Pause between
-                                                          // characters
+                        Thread.sleep(Configuration.getWpm().getCharPause());
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

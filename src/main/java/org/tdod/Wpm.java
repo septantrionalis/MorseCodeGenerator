@@ -21,6 +21,7 @@ public enum Wpm {
     WPM_21(43),
     WPM_22(42),
     WPM_23(40),
+    WPM_24(48),
     WPM_25(36),
     WPM_26(35),
     WPM_27(34),
@@ -51,5 +52,38 @@ public enum Wpm {
         return dot * 7;
     }
 
+    public static Wpm getWpm(Integer wpmInt) {
+        switch (wpmInt) {
+        case 5: return WPM_5;
+        case 6: return WPM_6;
+        case 7: return WPM_7;
+        case 8: return WPM_8;
+        case 9: return WPM_9;
+        case 10: return WPM_10;
+        case 11: return WPM_11;
+        case 12: return WPM_12;
+        case 13: return WPM_13;
+        case 14: return WPM_14;
+        case 15: return WPM_15;
+        case 16: return WPM_16;
+        case 17: return WPM_17;
+        case 18: return WPM_18;
+        case 19: return WPM_19;
+        case 20: return WPM_20;
+        case 21: return WPM_21;
+        case 22: return WPM_22;
+        case 23: return WPM_23;
+        case 24: return WPM_24;
+        case 25: return WPM_25;
+        case 26: return WPM_26;
+        case 27: return WPM_27;
+        case 28: return WPM_28;
+        case 29: return WPM_29;
+        case 30: return WPM_30;
+        default:
+            System.out.println("WPM " + wpmInt + " not supported.");
+            throw new RuntimeException("WPM " + wpmInt + " not supported.");
+        }
+    }
     
 }
