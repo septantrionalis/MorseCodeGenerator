@@ -31,7 +31,6 @@ public class AudioPlayer {
                 if (toneBuffer[i] < -100) toneBuffer[i] = (byte)-100;
                 if (toneBuffer[i] > 100) toneBuffer[i] = (byte)100;
                 
-                System.out.println("ANGLE="+toneBuffer[i]);
             }
             ToneBuffer buffer = new ToneBuffer(toneBuffer);
             toneBuffers.add(buffer);
