@@ -1,4 +1,4 @@
-This java application will grab a random weather report from OpenAI and generate the morse code audio from it. Any generated messages will be saved into the "history" directory. The entire app is console/terminal based. All configuration is done in the "config.properties" file.
+This java application will grab a random weather reports, bulletins, etc from OpenAI and generate the morse code audio from it. Any generated messages will be saved into the "history" directory. The entire app is console/terminal based. All configuration is done in the "config.properties" file.
 
 ## To Run
 Java 1.8 is required. May work with higher versions, but was coded using Java 1.8.\
