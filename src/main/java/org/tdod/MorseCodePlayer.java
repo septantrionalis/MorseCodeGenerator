@@ -2,6 +2,7 @@ package org.tdod;
 
 import org.tdod.api.TextGenerator;
 import org.tdod.api.impl.OpenAiTextGenerator;
+import org.tdod.model.enums.TextSourceEnum;
 
 import java.io.PrintWriter;
 import java.nio.file.Files;

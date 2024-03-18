@@ -1,5 +1,8 @@
 package org.tdod;
 
+import org.tdod.model.enums.TextSourceEnum;
+import org.tdod.model.enums.WpmEnum;
+
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Optional;

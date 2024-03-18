@@ -1,5 +1,8 @@
 package org.tdod;
 
+import org.tdod.model.enums.TextSourceEnum;
+import org.tdod.model.enums.ToneBuffer;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

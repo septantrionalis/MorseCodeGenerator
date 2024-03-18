@@ -1,4 +1,4 @@
-package org.tdod;
+package org.tdod.model.enums;
 
 public enum WpmEnum {
 
