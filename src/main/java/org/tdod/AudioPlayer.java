@@ -86,7 +86,7 @@ public class AudioPlayer {
             System.out.println();
             System.out.println("TIME = " + sec + " seconds.");
             
-            if (Configuration.getTextSource().equals(TextSource.PARIS)) {
+            if (Configuration.getTextSource().equals(TextSourceEnum.PARIS)) {
                 System.out.println("WPM = " + 60 / sec);                
             }
         }

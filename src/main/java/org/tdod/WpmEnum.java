@@ -1,6 +1,6 @@
 package org.tdod;
 
-public enum Wpm {
+public enum WpmEnum {
 
     WPM_5(192),
     WPM_6(160),
@@ -32,7 +32,7 @@ public enum Wpm {
     
     private int dot;
    
-    private Wpm(int dot) {
+    private WpmEnum(int dot) {
         this.dot = dot;
     }
 
@@ -52,7 +52,7 @@ public enum Wpm {
         return dot * 7;
     }
 
-    public static Wpm getWpm(Integer wpmInt) {
+    public static WpmEnum getWpm(Integer wpmInt) {
         switch (wpmInt) {
         case 5: return WPM_5;
         case 6: return WPM_6;

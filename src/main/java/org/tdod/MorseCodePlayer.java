@@ -46,7 +46,7 @@ public class MorseCodePlayer {
     }
     
     private void saveText(String input) {
-        if (!Configuration.getTextSource().equals(TextSource.FILE)) {
+        if (!Configuration.getTextSource().equals(TextSourceEnum.FILE)) {
             Format f = new SimpleDateFormat("MMddyy_HHmmss");
             String strDate = f.format(new Date());
             
@@ -106,7 +106,7 @@ public class MorseCodePlayer {
         scanner.nextLine();
         scanner.close();
         
-        System.out.println("Starting in " + Configuration.getStartDelay()+ " seconds...");
+        System.out.println("Starting in " + Configuration.getStartDelay() + " seconds...");
         
         Thread.sleep(Configuration.getStartDelay() * 1000);
         

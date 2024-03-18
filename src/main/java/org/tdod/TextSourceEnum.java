@@ -1,6 +1,6 @@
 package org.tdod;
 
-public enum TextSource {
+public enum TextSourceEnum {
 
     OPEN_AI("open_ai"),
     MOCK("mock"),
@@ -9,7 +9,7 @@ public enum TextSource {
     
     private String textSource; 
     
-    private TextSource(String textSource) {
+    private TextSourceEnum(String textSource) {
         this.textSource = textSource;
     }
 

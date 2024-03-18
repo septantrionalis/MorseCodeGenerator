@@ -8,9 +8,9 @@ import java.util.Properties;
 public class Configuration {
 
     private static String apiKey = "TODO";
-    private static Wpm wpm = Wpm.WPM_23;    
+    private static WpmEnum wpm = WpmEnum.WPM_23;
     private static int frequency = 600;
-    private static TextSource textSource = TextSource.MOCK;
+    private static TextSourceEnum textSource = TextSourceEnum.MOCK;
     private static String textPrompt = "a lengthy weather report";
     private static String url = "https://api.openai.com/v1/chat/completions";
     private static String model = "gpt-3.5-turbo";
@@ -33,7 +33,7 @@ public class Configuration {
         try {
             Optional<String> wpmConfig = Optional.ofNullable(prop.getProperty("app.wpm"));
             wpmConfig.ifPresent(value -> System.out.println("Found app.wpm: " + value));
-            wpmConfig.ifPresent(value -> setWpm(Wpm.getWpm(Integer.valueOf(value.trim()))));            
+            wpmConfig.ifPresent(value -> setWpm(WpmEnum.getWpm(Integer.valueOf(value.trim()))));
         } catch (NumberFormatException e) {
             System.out.println("app.wpm in property file is invalid.");
             throw e;
@@ -51,7 +51,7 @@ public class Configuration {
         try {
             Optional<String> frequencyConfig = Optional.ofNullable(prop.getProperty("app.textsource"));
             frequencyConfig.ifPresent(value -> System.out.println("Found app.textsource: " + value));
-            frequencyConfig.ifPresent(value -> setTextSource(TextSource.valueOf(value.trim().toUpperCase())));                        
+            frequencyConfig.ifPresent(value -> setTextSource(TextSourceEnum.valueOf(value.trim().toUpperCase())));
         } catch (Exception e) {
             System.out.println("app.textsource in property file is invalid.");
             throw e;
@@ -113,11 +113,11 @@ public class Configuration {
         Configuration.apiKey = apiKey;
     }
 
-    public static Wpm getWpm() {
+    public static WpmEnum getWpm() {
         return wpm;
     }
 
-    public static void setWpm(Wpm wpm) {
+    public static void setWpm(WpmEnum wpm) {
         Configuration.wpm = wpm;
     }
 
@@ -129,11 +129,11 @@ public class Configuration {
         Configuration.frequency = frequency;
     }
 
-    public static TextSource getTextSource() {
+    public static TextSourceEnum getTextSource() {
         return textSource;
     }
 
-    public static void setTextSource(TextSource textSource) {
+    public static void setTextSource(TextSourceEnum textSource) {
         Configuration.textSource = textSource;
     }
 
