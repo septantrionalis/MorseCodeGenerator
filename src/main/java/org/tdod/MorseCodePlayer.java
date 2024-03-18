@@ -1,6 +1,8 @@
 package org.tdod;
 
+import org.tdod.api.AudioPlayer;
 import org.tdod.api.TextGenerator;
+import org.tdod.api.impl.DefaultAudioPlayer;
 import org.tdod.api.impl.OpenAiTextGenerator;
 import org.tdod.model.enums.TextSourceEnum;
 
@@ -20,7 +22,7 @@ public class MorseCodePlayer {
     private static final HashMap<Character, String> morseCodeMap = MorseCodeMap.getMap();
    
     public TextGenerator openAiApi = new OpenAiTextGenerator();
-    public AudioPlayer audioPlayer = new AudioPlayer();
+    public AudioPlayer audioPlayer = new DefaultAudioPlayer();
     
 
     private String getCleanInput(String input) {

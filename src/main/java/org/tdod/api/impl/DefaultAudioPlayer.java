@@ -1,5 +1,8 @@
-package org.tdod;
+package org.tdod.api.impl;
 
+import org.tdod.Configuration;
+import org.tdod.MorseCodeMap;
+import org.tdod.api.AudioPlayer;
 import org.tdod.model.enums.TextSourceEnum;
 import org.tdod.model.enums.ToneBuffer;
 
@@ -11,38 +14,18 @@ import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.SourceDataLine;
 
-public class AudioPlayer {
+public class DefaultAudioPlayer implements AudioPlayer {
     
     private static List<ToneBuffer> toneBuffers = new ArrayList<>();
     private static final HashMap<Character, String> morseCodeMap = MorseCodeMap.getMap();
 
-    public AudioPlayer() {
-        calculateBeep(Configuration.getWpm().getDot()); 
+    public DefaultAudioPlayer() {
+        calculateBeep(Configuration.getWpm().getDot());
         calculateBeep(Configuration.getWpm().getDash());
 
     }
-    
-    public void calculateBeep(int duration) {        
-        try {
-            
-            byte[] toneBuffer = new byte[duration * 8];
-            for (int i = 0; i < toneBuffer.length; i++) {
-                double angle = i / (8000.0 / Configuration.getFrequency()) * 2.0 * Math.PI;
-                toneBuffer[i] = (byte) (Math.sin(angle) * 127.0);
-                
-                // Trying to adjust the tone...
-                if (toneBuffer[i] < -100) toneBuffer[i] = (byte)-100;
-                if (toneBuffer[i] > 100) toneBuffer[i] = (byte)100;
-                
-            }
-            ToneBuffer buffer = new ToneBuffer(toneBuffer);
-            toneBuffers.add(buffer);
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }        
-    }
-    
+    @Override
     public void play(String input) throws Exception {
         AudioFormat format = new AudioFormat(8000, 8, 1, true, false);
         SourceDataLine line = AudioSystem.getSourceDataLine(format);
@@ -96,8 +79,27 @@ public class AudioPlayer {
 
         line.stop();
         line.close();
-
     }
 
-    
+    private void calculateBeep(int duration) {
+        try {
+
+            byte[] toneBuffer = new byte[duration * 8];
+            for (int i = 0; i < toneBuffer.length; i++) {
+                double angle = i / (8000.0 / Configuration.getFrequency()) * 2.0 * Math.PI;
+                toneBuffer[i] = (byte) (Math.sin(angle) * 127.0);
+
+                // Trying to adjust the tone...
+                if (toneBuffer[i] < -100) toneBuffer[i] = (byte)-100;
+                if (toneBuffer[i] > 100) toneBuffer[i] = (byte)100;
+
+            }
+            ToneBuffer buffer = new ToneBuffer(toneBuffer);
+            toneBuffers.add(buffer);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
