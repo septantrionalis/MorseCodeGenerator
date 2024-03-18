@@ -1,4 +1,7 @@
-package org.tdod;
+package org.tdod.api.impl;
+
+import org.tdod.Configuration;
+import org.tdod.api.TextGenerator;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,12 +10,13 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class OpenAiApi {
+public class OpenAiTextGenerator implements TextGenerator {
 
     public void ChatGptApi() {
         
     }
-    
+
+    @Override
     public String generateRandomText() {       
         try {
             URL obj = new URL(Configuration.getUrl());

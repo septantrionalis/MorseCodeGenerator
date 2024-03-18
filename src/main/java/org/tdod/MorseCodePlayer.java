@@ -1,5 +1,8 @@
 package org.tdod;
 
+import org.tdod.api.TextGenerator;
+import org.tdod.api.impl.OpenAiTextGenerator;
+
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -15,7 +18,7 @@ public class MorseCodePlayer {
 
     private static final HashMap<Character, String> morseCodeMap = MorseCodeMap.getMap();
    
-    public OpenAiApi openAiApi = new OpenAiApi();
+    public TextGenerator openAiApi = new OpenAiTextGenerator();
     public AudioPlayer audioPlayer = new AudioPlayer();
     
 
