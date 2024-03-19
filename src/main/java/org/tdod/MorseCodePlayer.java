@@ -23,7 +23,6 @@ public class MorseCodePlayer {
    
     public TextGenerator openAiApi = new OpenAiTextGenerator();
     public AudioPlayer audioPlayer = new DefaultAudioPlayer();
-    
 
     private String getCleanInput(String input) {
         ArrayList<Character> validList = new ArrayList<Character>(morseCodeMap.keySet());
@@ -48,7 +47,6 @@ public class MorseCodePlayer {
             Long count = input.chars().filter(num -> num == c).count();
             System.out.println(c + ":" + count);
         }
-        
     }
     
     private void saveText(String input) {
@@ -66,7 +64,6 @@ public class MorseCodePlayer {
     }
     
     private void run() throws Exception {
-        
         System.out.println("Generating random text...");
         String generatedText;
         switch (Configuration.getTextSource()) {
@@ -123,6 +120,5 @@ public class MorseCodePlayer {
         Configuration.loadProperties();
         new MorseCodePlayer().run();
     }
-
 
 }

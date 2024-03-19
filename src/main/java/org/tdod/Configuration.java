@@ -21,10 +21,10 @@ public class Configuration {
     private static int startDelay = 5;
     
     private Configuration() {
-        
     }
 
     public static void loadProperties() throws Exception {
+        System.out.println("Loading properties from config.properties");
         InputStream input = new FileInputStream("config.properties");
         Properties prop = new Properties();
         prop.load(input);        
@@ -104,8 +104,6 @@ public class Configuration {
             System.out.println("app.startdelay in property file is invalid.");
             throw e;
         }
-
-        
     }
     
     public static String getApiKey() {

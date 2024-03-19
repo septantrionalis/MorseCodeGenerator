@@ -13,7 +13,6 @@ import java.net.URL;
 public class OpenAiTextGenerator implements TextGenerator {
 
     public void ChatGptApi() {
-        
     }
 
     @Override
@@ -38,7 +37,6 @@ public class OpenAiTextGenerator implements TextGenerator {
             String line;
 
             StringBuffer response = new StringBuffer();
-
             while ((line = br.readLine()) != null) {
                 response.append(line);
             }
@@ -58,7 +56,6 @@ public class OpenAiTextGenerator implements TextGenerator {
         int end = response.indexOf("\"", start);
 
         return response.substring(start, end);
-
     }
 
 

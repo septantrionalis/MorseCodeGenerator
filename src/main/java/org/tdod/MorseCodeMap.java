@@ -54,7 +54,6 @@ public class MorseCodeMap {
     }
     
     private MorseCodeMap() {
-        
     }
     
     public static HashMap<Character, String> getMap() {

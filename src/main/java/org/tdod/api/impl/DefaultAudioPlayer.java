@@ -22,7 +22,6 @@ public class DefaultAudioPlayer implements AudioPlayer {
     public DefaultAudioPlayer() {
         calculateBeep(Configuration.getWpm().getDot());
         calculateBeep(Configuration.getWpm().getDash());
-
     }
 
     @Override
@@ -92,11 +91,9 @@ public class DefaultAudioPlayer implements AudioPlayer {
                 // Trying to adjust the tone...
                 if (toneBuffer[i] < -100) toneBuffer[i] = (byte)-100;
                 if (toneBuffer[i] > 100) toneBuffer[i] = (byte)100;
-
             }
             ToneBuffer buffer = new ToneBuffer(toneBuffer);
             toneBuffers.add(buffer);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
