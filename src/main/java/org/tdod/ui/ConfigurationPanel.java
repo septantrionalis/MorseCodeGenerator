@@ -38,19 +38,21 @@ public class ConfigurationPanel extends JPanel {
 
         row++;
         createLabel(gbc, "OpenAI Text Prompt:", 0, row);
-        apiPromptTextField = createTextField(gbc, 1, row, 16, false);
+        apiPromptTextField = createTextField(gbc, 1, row, 30, false);
         outerPanel.add(apiPromptTextField, gbc);
         apiPromptTextField.setText(Configuration.getTextPrompt());
 
         row++;
         createLabel(gbc, "OpenAI URL:", 0, row);
-        apiUrlTextField = createTextField(gbc, 1, row, 16, false);
+        apiUrlTextField = createTextField(gbc, 1, row, 30, false);
         outerPanel.add(apiUrlTextField, gbc);
+        apiUrlTextField.setText(Configuration.getUrl());
 
         row++;
         createLabel(gbc, "OpenAI Model:", 0, row);
         openAiTextField = createTextField(gbc, 1, row, 16, false);
         outerPanel.add(openAiTextField, gbc);
+        openAiTextField.setText(Configuration.getModel());
 
         row++;
         createLabel(gbc, "WPM:", 0, row);
@@ -58,6 +60,7 @@ public class ConfigurationPanel extends JPanel {
         gbc.gridx = 1;
         gbc.gridy = row;
         outerPanel.add(wpmComboBox, gbc);
+        wpmComboBox.setSelectedItem(Configuration.getWpm().getDisplayName());
 
         row++;
         createLabel(gbc, "Text Source:", 0, row);

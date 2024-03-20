@@ -94,4 +94,8 @@ public enum WpmEnum {
         }
         return displayNames;
     }
+
+    public String getDisplayName() {
+        return displayName;
+    }
 }
