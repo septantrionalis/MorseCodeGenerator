@@ -2,38 +2,39 @@ package org.tdod.model.enums;
 
 public enum WpmEnum {
 
-    WPM_5(192),
-    WPM_6(160),
-    WPM_7(137),
-    WPM_8(120),
-    WPM_9(106),
-    WPM_10(96),
-    WPM_11(89),
-    WPM_12(79),
-    WPM_13(73),
-    WPM_14(67),
-    WPM_15(63),
-    WPM_16(59),
-    WPM_17(54),
-    WPM_18(53),    
-    WPM_19(49),
-    WPM_20(46),
-    WPM_21(43),
-    WPM_22(42),
-    WPM_23(40),
-    WPM_24(48),
-    WPM_25(36),
-    WPM_26(35),
-    WPM_27(34),
-    WPM_28(33),
-    WPM_29(32),
-    WPM_30(31),
-    WPM_0(0);
+    WPM_5(192, "5"),
+    WPM_6(160, "6"),
+    WPM_7(137, "7"),
+    WPM_8(120, "8"),
+    WPM_9(106, "9"),
+    WPM_10(96, "10"),
+    WPM_11(89, "11"),
+    WPM_12(79, "12"),
+    WPM_13(73, "13"),
+    WPM_14(67, "14"),
+    WPM_15(63, "15"),
+    WPM_16(59, "16"),
+    WPM_17(54, "17"),
+    WPM_18(53, "18"),
+    WPM_19(49, "19"),
+    WPM_20(46, "20"),
+    WPM_21(43, "21"),
+    WPM_22(42, "22"),
+    WPM_23(40, "23"),
+    WPM_24(48, "24"),
+    WPM_25(36, "25"),
+    WPM_26(35, "26"),
+    WPM_27(34, "27"),
+    WPM_28(33, "28"),
+    WPM_29(32, "29"),
+    WPM_30(31, "30");
     
     private int dot;
+    private String displayName;
    
-    private WpmEnum(int dot) {
+    private WpmEnum(int dot, String displayName) {
         this.dot = dot;
+        this.displayName = displayName;
     }
 
     public int getDot() {
@@ -85,5 +86,12 @@ public enum WpmEnum {
             throw new RuntimeException("WPM " + wpmInt + " not supported.");
         }
     }
-    
+
+    public static String[] getDisplayNames() {
+        String[] displayNames = new String[WpmEnum.values().length];
+        for (int i = 0; i < WpmEnum.values().length; i++) {
+            displayNames[i] = WpmEnum.values()[i].displayName;
+        }
+        return displayNames;
+    }
 }
