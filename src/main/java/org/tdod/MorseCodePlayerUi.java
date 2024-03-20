@@ -33,6 +33,7 @@ public class MorseCodePlayerUi {
     public static void main(String args[]){
         try {
             // UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+            Configuration.loadProperties();
             UIManager.setLookAndFeel( new FlatLightLaf() );
         } catch (Exception e) {
             e.printStackTrace();
