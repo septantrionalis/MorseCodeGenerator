@@ -1,9 +1,11 @@
 package org.tdod.ui;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.tdod.Configuration;
 import org.tdod.model.enums.TextSourceEnum;
 import org.tdod.model.enums.WpmEnum;
+import org.tdod.utils.Utils;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -16,25 +18,18 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ConfigurationPanel extends JPanel {
 
     private JTextField apiKeyTextField;
     private JTextField apiPromptTextField;
     private JTextField apiUrlTextField;
-    private JTextField openAiTextField;
+    private JTextField openAiModelTextField;
     private JComboBox<String> wpmComboBox;
     private JComboBox<String> textSourceComboBox;
     private JComboBox textFilenameComboBox;
@@ -71,9 +66,9 @@ public class ConfigurationPanel extends JPanel {
 
         row++;
         createLabel(gbc, "OpenAI Model:", 0, row);
-        openAiTextField = createTextField(gbc, 1, row, 16, false);
-        outerPanel.add(openAiTextField, gbc);
-        openAiTextField.setText(Configuration.getModel());
+        openAiModelTextField = createTextField(gbc, 1, row, 16, false);
+        outerPanel.add(openAiModelTextField, gbc);
+        openAiModelTextField.setText(Configuration.getModel());
 
         row++;
         createLabel(gbc, "WPM:", 0, row);
@@ -115,10 +110,12 @@ public class ConfigurationPanel extends JPanel {
         this.add(outerPanel, BorderLayout.WEST);
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
-        JButton button = new JButton("Save");
-        button.setSize(50, 50);
-        button.addActionListener(e -> saveConfiguration());
-        buttonPanel.add(button);
+        JButton saveButton = new JButton("Save");
+        saveButton.addActionListener(e -> saveConfiguration());
+        buttonPanel.add(saveButton);
+        JButton resetButton = new JButton("Reset");
+        resetButton.addActionListener(e -> resetConfiguration());
+        buttonPanel.add(resetButton);
         this.add(buttonPanel, BorderLayout.SOUTH);
 
     }
@@ -157,13 +154,42 @@ public class ConfigurationPanel extends JPanel {
     }
 
     private void saveConfiguration() {
+        if (StringUtils.isBlank(apiKeyTextField.getText())) {
+            apiKeyTextField.setText(Configuration.getApiKey());
+        }
         Configuration.setApiKey(apiKeyTextField.getText());
+
+        if (StringUtils.isBlank(apiPromptTextField.getText())) {
+            apiPromptTextField.setText(Configuration.getTextPrompt());
+        }
         Configuration.setTextPrompt(apiPromptTextField.getText());
+
+        if (StringUtils.isBlank(apiUrlTextField.getText())) {
+            apiUrlTextField.setText(Configuration.getUrl());
+        }
         Configuration.setUrl(apiUrlTextField.getText());
-        Configuration.setModel(openAiTextField.getText());
+
+        if (StringUtils.isBlank(openAiModelTextField.getText())) {
+            openAiModelTextField.setText(Configuration.getModel());
+        }
+        Configuration.setModel(openAiModelTextField.getText());
+
         Configuration.setWpm(WpmEnum.getWpm(Integer.valueOf(wpmComboBox.getSelectedItem().toString())));
         Configuration.setTextSource(TextSourceEnum.valueOf(((String)textSourceComboBox.getSelectedItem()).toUpperCase()));
+
+        if (StringUtils.isBlank(startDelayTextField.getText())) {
+            startDelayTextField.setText("" + Configuration.getStartDelay());
+        }
+        if (!Utils.isInteger(startDelayTextField.getText())) {
+            startDelayTextField.setText("" + Configuration.getStartDelay());
+        }
         Configuration.setStartDelay(Integer.parseInt(startDelayTextField.getText()));
+        if (StringUtils.isBlank(audioFrequencyTextField.getText())) {
+            audioFrequencyTextField.setText("" + Configuration.getFrequency());
+        }
+        if (!Utils.isInteger(audioFrequencyTextField.getText())) {
+            audioFrequencyTextField.setText("" + Configuration.getFrequency());
+        }
         Configuration.setFrequency(Integer.parseInt(audioFrequencyTextField.getText()));
         Configuration.setFilename((String) textFilenameComboBox.getSelectedItem());
 
@@ -184,5 +210,17 @@ public class ConfigurationPanel extends JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void resetConfiguration() {
+        apiKeyTextField.setText(Configuration.getApiKey());
+        apiPromptTextField.setText(Configuration.getTextPrompt());
+        apiUrlTextField.setText(Configuration.getUrl());
+        openAiModelTextField.setText(Configuration.getModel());
+        wpmComboBox.setSelectedItem(Configuration.getWpm().getDisplayName());
+        textSourceComboBox.setSelectedItem(Configuration.getTextSource().getConfigName());
+        textFilenameComboBox.setSelectedItem(Configuration.getFilename());
+        startDelayTextField.setText(String.valueOf(Configuration.getStartDelay()));
+        audioFrequencyTextField.setText(String.valueOf(Configuration.getFrequency()));
     }
 }
