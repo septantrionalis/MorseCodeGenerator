@@ -5,6 +5,7 @@ import org.tdod.api.TextGenerator;
 import org.tdod.api.impl.DefaultAudioPlayer;
 import org.tdod.api.impl.OpenAiTextGenerator;
 import org.tdod.model.enums.TextSourceEnum;
+import org.tdod.utils.Utils;
 
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -20,26 +21,10 @@ import java.util.Scanner;
 public class MorseCodePlayer {
 
     private static final HashMap<Character, String> morseCodeMap = MorseCodeMap.getMap();
-   
+
     public TextGenerator openAiApi = new OpenAiTextGenerator();
     public AudioPlayer audioPlayer = new DefaultAudioPlayer();
 
-    private String getCleanInput(String input) {
-        ArrayList<Character> validList = new ArrayList<Character>(morseCodeMap.keySet());
-        StringBuffer lineBuffer = new StringBuffer();
-
-        for (int i = 0; i < input.length(); i++) {
-            String str = "" + input.charAt(i);
-            for (char s:validList) {
-                if (str.toLowerCase().equals(String.valueOf(s).toLowerCase())) {
-                    lineBuffer.append(str);
-                }
-            }
-        }
-
-        return lineBuffer.toString();
-    }
-        
     private void printStats(String input) {
         ArrayList<Character> validList = new ArrayList<Character>(morseCodeMap.keySet());
 
@@ -86,7 +71,7 @@ public class MorseCodePlayer {
             }
             break;
         default:
-            throw new RuntimeException("Invalid app.textsource " + Configuration.getTextSource());
+            throw new RuntimeException("Invalid " + Configuration.APP_TEXTSOURCE +": " + Configuration.getTextSource());
         }       
 
         System.out.println("Generated text:");
@@ -95,7 +80,7 @@ public class MorseCodePlayer {
         generatedText = generatedText.replaceAll("\\\\n", " ");
         generatedText = generatedText.toUpperCase();
         
-        generatedText = getCleanInput(generatedText);
+        generatedText = Utils.getCleanInput(generatedText);
         System.out.println("Cleansed text: ");
         System.out.println(generatedText);
         
