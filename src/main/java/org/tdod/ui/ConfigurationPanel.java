@@ -1,5 +1,6 @@
 package org.tdod.ui;
 
+import org.apache.commons.io.FileUtils;
 import org.tdod.Configuration;
 import org.tdod.model.enums.TextSourceEnum;
 import org.tdod.model.enums.WpmEnum;
@@ -15,7 +16,10 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -91,6 +95,7 @@ public class ConfigurationPanel extends JPanel {
         createLabel(gbc, "Text Filename:", 0, row);
         String[] historyFiles = getListOfHistoryFiles().toArray(new String[0]);
         textFilenameComboBox = new JComboBox(historyFiles);
+        textFilenameComboBox.setSelectedItem(Configuration.getFilename());
         gbc.gridx = 1;
         gbc.gridy = row;
         outerPanel.add(textFilenameComboBox, gbc);
@@ -112,6 +117,7 @@ public class ConfigurationPanel extends JPanel {
         buttonPanel.setLayout(new FlowLayout());
         JButton button = new JButton("Save");
         button.setSize(50, 50);
+        button.addActionListener(e -> saveConfiguration());
         buttonPanel.add(button);
         this.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -148,5 +154,35 @@ public class ConfigurationPanel extends JPanel {
             gbc.weighty = 1;
         }
         return textfield;
+    }
+
+    private void saveConfiguration() {
+        Configuration.setApiKey(apiKeyTextField.getText());
+        Configuration.setTextPrompt(apiPromptTextField.getText());
+        Configuration.setUrl(apiUrlTextField.getText());
+        Configuration.setModel(openAiTextField.getText());
+        Configuration.setWpm(WpmEnum.getWpm(Integer.valueOf(wpmComboBox.getSelectedItem().toString())));
+        Configuration.setTextSource(TextSourceEnum.valueOf(((String)textSourceComboBox.getSelectedItem()).toUpperCase()));
+        Configuration.setStartDelay(Integer.parseInt(startDelayTextField.getText()));
+        Configuration.setFrequency(Integer.parseInt(audioFrequencyTextField.getText()));
+        Configuration.setFilename((String) textFilenameComboBox.getSelectedItem());
+
+        StringBuffer sb = new StringBuffer();
+        sb.append(Configuration.API_AI_KEY + "=" + Configuration.getApiKey()).append("\n");
+        sb.append(Configuration.API_AI_TEXTPROMPT + "=" + Configuration.getTextPrompt()).append("\n");
+        sb.append(Configuration.API_AI_URL + "=" + Configuration.getUrl()).append("\n");
+        sb.append(Configuration.API_AI_MODEL + "=" + Configuration.getModel()).append("\n");
+        sb.append(Configuration.APP_WPM + "=" + Configuration.getWpm().getDisplayName()).append("\n");
+        sb.append(Configuration.APP_TEXTSOURCE + "=" + Configuration.getTextSource().name().toLowerCase()).append("\n");
+        sb.append(Configuration.APP_STARTDELAY + "=" + Configuration.getStartDelay()).append("\n");
+        sb.append(Configuration.AUDIO_FREQUENCY + "=" + Configuration.getFrequency()).append("\n");
+        sb.append(Configuration.APP_FILENAME + "=" + Configuration.getFilename()).append("\n");
+        try {
+            FileUtils.writeStringToFile(new File(Configuration.CONFIG_FILE),
+                    sb.toString(),
+                    Charset.forName("UTF-8"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

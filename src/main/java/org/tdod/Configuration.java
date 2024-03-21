@@ -11,6 +11,17 @@ import java.util.Properties;
 public class Configuration {
 
     public static final String HISTORY_DIR = "history";
+    public static final String CONFIG_FILE = "config.properties";
+
+    public static String API_AI_KEY = "api.ai.key";
+    public static String APP_WPM = "app.wpm";
+    public static String AUDIO_FREQUENCY = "audio.frequency";
+    public static String APP_TEXTSOURCE = "app.textsource";
+    public static String API_AI_TEXTPROMPT = "api.ai.textprompt";
+    public static String API_AI_URL = "api.ai.url";
+    public static String API_AI_MODEL = "api.ai.model";
+    public static String APP_FILENAME = "app.filename";
+    public static String APP_STARTDELAY = "app.startdelay";
 
     private static String apiKey = "TODO";
     private static WpmEnum wpm = WpmEnum.WPM_23;
@@ -26,18 +37,18 @@ public class Configuration {
     }
 
     public static void loadProperties() throws Exception {
-        System.out.println("Loading properties from config.properties");
-        InputStream input = new FileInputStream("config.properties");
+        System.out.println("Loading properties from " + CONFIG_FILE);
+        InputStream input = new FileInputStream(CONFIG_FILE);
         Properties prop = new Properties();
         prop.load(input);        
 
-        String apiKey = prop.getProperty("api.ai.key");
-        System.out.println("Found api key: " + apiKey);
+        String apiKey = prop.getProperty(API_AI_KEY);
+        System.out.println("Found " + API_AI_KEY + ": " + apiKey);
         setApiKey(apiKey);
         
         try {
-            Optional<String> wpmConfig = Optional.ofNullable(prop.getProperty("app.wpm"));
-            wpmConfig.ifPresent(value -> System.out.println("Found app.wpm: " + value));
+            Optional<String> wpmConfig = Optional.ofNullable(prop.getProperty(APP_WPM));
+            wpmConfig.ifPresent(value -> System.out.println("Found " + APP_WPM + ": " + value));
             wpmConfig.ifPresent(value -> setWpm(WpmEnum.getWpm(Integer.valueOf(value.trim()))));
         } catch (NumberFormatException e) {
             System.out.println("app.wpm in property file is invalid.");
@@ -45,8 +56,8 @@ public class Configuration {
         }
 
         try {
-            Optional<String> frequencyConfig = Optional.ofNullable(prop.getProperty("audio.frequency"));
-            frequencyConfig.ifPresent(value -> System.out.println("Found audio.frequency: " + value));
+            Optional<String> frequencyConfig = Optional.ofNullable(prop.getProperty(AUDIO_FREQUENCY));
+            frequencyConfig.ifPresent(value -> System.out.println("Found " + AUDIO_FREQUENCY + ": " + value));
             frequencyConfig.ifPresent(value -> setFrequency(Integer.valueOf(value.trim())));                        
         } catch (NumberFormatException e) {
             System.out.println("audio.frequency in property file is invalid.");
@@ -54,8 +65,8 @@ public class Configuration {
         }
         
         try {
-            Optional<String> frequencyConfig = Optional.ofNullable(prop.getProperty("app.textsource"));
-            frequencyConfig.ifPresent(value -> System.out.println("Found app.textsource: " + value));
+            Optional<String> frequencyConfig = Optional.ofNullable(prop.getProperty(APP_TEXTSOURCE));
+            frequencyConfig.ifPresent(value -> System.out.println("Found " + APP_TEXTSOURCE + ": " + value));
             frequencyConfig.ifPresent(value -> setTextSource(TextSourceEnum.valueOf(value.trim().toUpperCase())));
         } catch (Exception e) {
             System.out.println("app.textsource in property file is invalid.");
@@ -63,8 +74,8 @@ public class Configuration {
         }
         
         try {
-            Optional<String> textPromptConfig = Optional.ofNullable(prop.getProperty("api.ai.textprompt"));
-            textPromptConfig.ifPresent(value -> System.out.println("Found api.ai.textprompt: " + value));
+            Optional<String> textPromptConfig = Optional.ofNullable(prop.getProperty(API_AI_TEXTPROMPT));
+            textPromptConfig.ifPresent(value -> System.out.println("Found " + API_AI_TEXTPROMPT + ": " + value));
             textPromptConfig.ifPresent(value -> setTextPrompt(value));                        
         } catch (Exception e) {
             System.out.println("api.ai.textprompt in property file is invalid.");
@@ -72,8 +83,8 @@ public class Configuration {
         }
 
         try {
-            Optional<String> urlConfig = Optional.ofNullable(prop.getProperty("api.ai.url"));
-            urlConfig.ifPresent(value -> System.out.println("Found api.ai.url: " + value));
+            Optional<String> urlConfig = Optional.ofNullable(prop.getProperty(API_AI_URL));
+            urlConfig.ifPresent(value -> System.out.println("Found " + API_AI_URL + ": " + value));
             urlConfig.ifPresent(value -> setUrl(value));                        
         } catch (Exception e) {
             System.out.println("api.ai.url in property file is invalid.");
@@ -81,8 +92,8 @@ public class Configuration {
         }
 
         try {
-            Optional<String> modelConfig = Optional.ofNullable(prop.getProperty("api.ai.model"));
-            modelConfig.ifPresent(value -> System.out.println("Found api.ai.model: " + value));
+            Optional<String> modelConfig = Optional.ofNullable(prop.getProperty(API_AI_MODEL));
+            modelConfig.ifPresent(value -> System.out.println("Found " + API_AI_MODEL + ": " + value));
             modelConfig.ifPresent(value -> setModel(value));                        
         } catch (Exception e) {
             System.out.println("api.ai.mode in property file is invalid.");
@@ -90,8 +101,8 @@ public class Configuration {
         }
 
         try {
-            Optional<String> filenameConfig = Optional.ofNullable(prop.getProperty("app.filename"));
-            filenameConfig.ifPresent(value -> System.out.println("Found app.filename: " + value));
+            Optional<String> filenameConfig = Optional.ofNullable(prop.getProperty(APP_FILENAME));
+            filenameConfig.ifPresent(value -> System.out.println("Found " + APP_FILENAME + ": " + value));
             filenameConfig.ifPresent(value -> setFilename(value));                        
         } catch (Exception e) {
             System.out.println("app.filename in property file is invalid.");
@@ -99,8 +110,8 @@ public class Configuration {
         }
      
         try {
-            Optional<String> startDelayConfig = Optional.ofNullable(prop.getProperty("app.startdelay"));
-            startDelayConfig.ifPresent(value -> System.out.println("Found app.startdelay: " + value));
+            Optional<String> startDelayConfig = Optional.ofNullable(prop.getProperty(APP_STARTDELAY));
+            startDelayConfig.ifPresent(value -> System.out.println("Found " + APP_STARTDELAY + ": " + value));
             startDelayConfig.ifPresent(value -> setStartDelay(Integer.valueOf(value.trim())));            
         } catch (NumberFormatException e) {
             System.out.println("app.startdelay in property file is invalid.");
