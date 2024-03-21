@@ -77,7 +77,7 @@ public class MorseCodePlayer {
             generatedText = "PARIS ";
             break;
         case FILE:
-            String filename = "./history/" + Configuration.getFilename();
+            String filename = "./" + Configuration.HISTORY_DIR + "/" + Configuration.getFilename();
             try {
                 generatedText = new String(Files.readAllBytes(Paths.get(filename)));                
             } catch (Exception e) {

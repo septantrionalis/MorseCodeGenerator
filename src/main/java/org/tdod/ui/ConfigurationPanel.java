@@ -4,9 +4,26 @@ import org.tdod.Configuration;
 import org.tdod.model.enums.TextSourceEnum;
 import org.tdod.model.enums.WpmEnum;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import java.awt.BorderLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import java.awt.FlowLayout;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ConfigurationPanel extends JPanel {
 
@@ -16,7 +33,7 @@ public class ConfigurationPanel extends JPanel {
     private JTextField openAiTextField;
     private JComboBox<String> wpmComboBox;
     private JComboBox<String> textSourceComboBox;
-    private JTextField filenameTextField;
+    private JComboBox textFilenameComboBox;
     private JTextField startDelayTextField;
     private JTextField audioFrequencyTextField;
 
@@ -64,27 +81,33 @@ public class ConfigurationPanel extends JPanel {
 
         row++;
         createLabel(gbc, "Text Source:", 0, row);
-        textSourceComboBox = new JComboBox(TextSourceEnum.getDisplayNames());
+        textSourceComboBox = new JComboBox(TextSourceEnum.getConfigNames());
         gbc.gridx = 1;
         gbc.gridy = row;
         outerPanel.add(textSourceComboBox, gbc);
+        textSourceComboBox.setSelectedItem(Configuration.getTextSource().getConfigName());
 
         row++;
         createLabel(gbc, "Text Filename:", 0, row);
-        filenameTextField = createTextField(gbc, 1, row, 16, false);
-        outerPanel.add(filenameTextField, gbc);
+        String[] historyFiles = getListOfHistoryFiles().toArray(new String[0]);
+        textFilenameComboBox = new JComboBox(historyFiles);
+        gbc.gridx = 1;
+        gbc.gridy = row;
+        outerPanel.add(textFilenameComboBox, gbc);
 
         row++;
         createLabel(gbc, "Start Delay:", 0, row);
         startDelayTextField = createTextField(gbc, 1, row, 3, false);
         outerPanel.add(startDelayTextField, gbc);
+        startDelayTextField.setText(String.valueOf(Configuration.getStartDelay()));
 
         row++;
         createLabel(gbc, "Audio Frequency:", 0, row);
         audioFrequencyTextField = createTextField(gbc, 1, row, 4, true);
         outerPanel.add(audioFrequencyTextField, gbc);
-        this.add(outerPanel, BorderLayout.WEST);
+        audioFrequencyTextField.setText(String.valueOf(Configuration.getFrequency()));
 
+        this.add(outerPanel, BorderLayout.WEST);
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
         JButton button = new JButton("Save");
@@ -99,6 +122,21 @@ public class ConfigurationPanel extends JPanel {
         gbc.gridx = x;
         gbc.gridy = y;
         outerPanel.add(jlabel, gbc);
+    }
+
+    public List<String> getListOfHistoryFiles() {
+        String dir = "./" + Configuration.HISTORY_DIR + "/";
+        File directory = new File(dir);
+        if (!directory.exists() || !directory.isDirectory()) {
+            throw new IllegalArgumentException("Invalid directory path");
+        }
+
+        File[] files = directory.listFiles();
+        return Arrays.stream(files)
+                .filter(file -> file.isFile())
+                .map(File::getName)
+                .sorted()
+                .collect(Collectors.toList());
     }
 
     private JTextField createTextField(GridBagConstraints gbc, int x, int y, int size, boolean isLast) {

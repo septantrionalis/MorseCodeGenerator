@@ -10,6 +10,8 @@ import java.util.Properties;
 
 public class Configuration {
 
+    public static final String HISTORY_DIR = "history";
+
     private static String apiKey = "TODO";
     private static WpmEnum wpm = WpmEnum.WPM_23;
     private static int frequency = 600;
