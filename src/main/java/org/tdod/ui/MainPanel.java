@@ -1,12 +1,17 @@
 package org.tdod.ui;
 
+import org.tdod.MorseCodePlayer;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class MainPanel extends JPanel {
 
-    public MainPanel() {
+    private MorseCodePlayer player;
+    private JButton mainButton = new JButton("Start");
+
+    public MainPanel(MorseCodePlayer player) {
         this.setLayout(new BorderLayout());
 
         JTextArea textArea = new JTextArea();
@@ -24,10 +29,20 @@ public class MainPanel extends JPanel {
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout());
-        JButton button = new JButton("Start");
-        button.setSize(50, 50);
-        buttonPanel.add(button);
+        mainButton = new JButton("Generate Text");
+        mainButton.addActionListener(e -> runPlayer());
+        buttonPanel.add(mainButton);
         this.add(buttonPanel, BorderLayout.SOUTH);
+
+        this.player = player;
     }
 
+    private void runPlayer() {
+        try {
+            mainButton.setText("Run");
+            // player.run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

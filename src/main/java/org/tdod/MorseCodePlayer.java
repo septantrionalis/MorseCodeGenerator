@@ -63,7 +63,7 @@ public class MorseCodePlayer {
         }
     }
     
-    private void run() throws Exception {
+    public void run() throws Exception {
         System.out.println("Generating random text...");
         String generatedText;
         switch (Configuration.getTextSource()) {

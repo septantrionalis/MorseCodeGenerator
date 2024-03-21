@@ -18,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.io.File;
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -118,6 +120,27 @@ public class ConfigurationPanel extends JPanel {
         buttonPanel.add(resetButton);
         this.add(buttonPanel, BorderLayout.SOUTH);
 
+        this.addComponentListener (new ComponentAdapter() {
+            public void componentShown ( ComponentEvent e ) {
+                String selectedValue = textFilenameComboBox.getSelectedItem().toString();
+                outerPanel.remove(textFilenameComboBox);
+                String[] historyFiles = getListOfHistoryFiles().toArray(new String[0]);
+                textFilenameComboBox = new JComboBox(historyFiles);
+                try {
+                    textFilenameComboBox.setSelectedItem(selectedValue);
+                } catch (Exception ex) {
+                    textFilenameComboBox.setSelectedIndex(0);
+                }
+                gbc.gridx = 1;
+                gbc.gridy = 6;
+                gbc.weightx = 0;
+                gbc.weighty = 0;
+                outerPanel.add(textFilenameComboBox, gbc);
+            }
+
+            public void componentHidden ( ComponentEvent e ) {
+            }
+        });
     }
 
     private void createLabel(GridBagConstraints gbc, String label, int x, int y) {
