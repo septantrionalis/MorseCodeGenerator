@@ -1,10 +1,15 @@
 package org.tdod.ui;
 
+import org.apache.commons.lang3.StringUtils;
 import org.tdod.Configuration;
 import org.tdod.MorseCodeMap;
 import org.tdod.MorseCodePlayer;
+import org.tdod.api.AudioPlayer;
+import org.tdod.api.Output;
 import org.tdod.api.TextGenerator;
+import org.tdod.api.impl.DefaultAudioPlayer;
 import org.tdod.api.impl.OpenAiTextGenerator;
+import org.tdod.api.impl.TextAreaOutput;
 import org.tdod.model.enums.PlayerRunStateEnum;
 import org.tdod.utils.Utils;
 
@@ -17,6 +22,8 @@ import java.util.HashMap;
 
 public class MainPanel extends JPanel {
 
+    private AudioPlayer audioPlayer = new DefaultAudioPlayer();
+
     private static final HashMap<Character, String> morseCodeMap = MorseCodeMap.getMap();
     private TextGenerator openAiApi = new OpenAiTextGenerator();
 
@@ -25,8 +32,11 @@ public class MainPanel extends JPanel {
     private JButton mainButton;
     private PlayerRunStateEnum state = PlayerRunStateEnum.INITIALIZE;
 
-    JTextArea textArea = new JTextArea();
-    StringBuffer buffer = new StringBuffer();
+    private JTextArea textArea = new JTextArea();
+
+    private Output output;
+
+    private String generatedText = "";
 
     public MainPanel(MorseCodePlayer player) {
         this.setLayout(new BorderLayout());
@@ -35,7 +45,6 @@ public class MainPanel extends JPanel {
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textArea.setBackground(this.getBackground());
-        print("Hello...");
         JScrollPane scroll = new JScrollPane(textArea);
         JPanel textAreaPanel = new JPanel();
         textAreaPanel.setLayout(new BorderLayout());
@@ -52,17 +61,19 @@ public class MainPanel extends JPanel {
         this.add(buttonPanel, BorderLayout.SOUTH);
 
         this.player = player;
+
+        output = new TextAreaOutput(textArea);
+        println("Hello...");
     }
 
     private void mainButtonHandler() {
         try {
             switch (state) {
                 case INITIALIZE:
-                    generateText();
+                    generatedText = generateText();
                     break;
                 case RUN:
-                    mainButton.setText("Generate Text");
-                    state = PlayerRunStateEnum.INITIALIZE;
+                    play(generatedText);
                     break;
             }
             // player.run();
@@ -71,11 +82,10 @@ public class MainPanel extends JPanel {
         }
     }
 
-    private void generateText() {
-        print("Generating random text...");
-        textArea.setText(buffer.toString());
+    private String generateText() {
+        println("Generating random text...");
 
-        String generatedText;
+        String generatedText = "";
         try {
             switch (Configuration.getTextSource()) {
                 case OPEN_AI:
@@ -92,7 +102,7 @@ public class MainPanel extends JPanel {
                     try {
                         generatedText = new String(Files.readAllBytes(Paths.get(filename)));
                     } catch (Exception e) {
-                        print("Cannot find the file " + filename);
+                        println("Cannot find the file " + filename);
                         throw new Exception(e);
                     }
                     break;
@@ -100,25 +110,31 @@ public class MainPanel extends JPanel {
                     throw new RuntimeException("Invalid " + Configuration.APP_TEXTSOURCE +": " + Configuration.getTextSource());
             }
 
-            print("Raw Generated text:");
-            print(generatedText);
+            println("Raw Generated text:");
+            println(generatedText);
 
             generatedText = generatedText.replaceAll("\\\\n", " ");
             generatedText = generatedText.toUpperCase();
 
             generatedText = Utils.getCleanInput(generatedText);
-            print("Cleansed text: ");
-            print(generatedText);
-            print("");
-            print("Text statistics:");
+            println("Cleansed text: ");
+            println(generatedText);
+            println("");
+            println("Text statistics:");
             printStats(generatedText);
+            mainButton.setText("Run");
+            state = PlayerRunStateEnum.RUN;
+            println("Press \"Run\" to play the morse code.");
         } catch (Exception e) {
-            print("Error generating text: " + e.getMessage());
+            println("Error generating text: " + e.getMessage());
+            generatedText = "";
+            mainButton.setText("Run");
+            state = PlayerRunStateEnum.INITIALIZE;
+            println("Press \"Generate Text\" to try again.");
             e.printStackTrace();
         }
 
-        mainButton.setText("Run");
-        state = PlayerRunStateEnum.RUN;
+        return generatedText;
     }
 
     private void printStats(String input) {
@@ -126,12 +142,28 @@ public class MainPanel extends JPanel {
 
         for (Character c:validList) {
             Long count = input.chars().filter(num -> num == c).count();
-            print(c + ":" + count);
+            println(c + ":" + count);
         }
     }
 
-    private void print(String text) {
-        buffer.append(text + "\n");
-        textArea.setText(buffer.toString());
+    private void println(String text) {
+        output.println(text);
+    }
+
+    private void play(String generatedText) {
+        if (StringUtils.isEmpty(generatedText)) {
+            return;
+        }
+
+        try {
+            println("Running...");
+        //    audioPlayer.play(generatedText);
+        } catch (Exception e) {
+            println("Error playing audio: " + e.getMessage());
+            e.printStackTrace();
+        }
+
+        mainButton.setText("Generate Text");
+        state = PlayerRunStateEnum.INITIALIZE;
     }
 }
