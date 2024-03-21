@@ -27,14 +27,13 @@ public class MorseCodePlayer {
     public TextGenerator openAiApi = new OpenAiTextGenerator();
     public AudioPlayer audioPlayer = new DefaultAudioPlayer();
 
-    private Output output = new ConsoleOutput();
 
     private void printStats(String input) {
         ArrayList<Character> validList = new ArrayList<Character>(morseCodeMap.keySet());
 
         for (Character c:validList) {
             Long count = input.chars().filter(num -> num == c).count();
-            System.out.println(c + ":" + count);
+            Configuration.getOutput().println(c + ":" + count);
         }
     }
     
@@ -47,13 +46,13 @@ public class MorseCodePlayer {
             try (PrintWriter out = new PrintWriter(filename)) {
                 out.println(input);
             } catch (Exception e) {
-                System.out.println("Unable to save file history " + filename);
+                Configuration.getOutput().println("Unable to save file history " + filename);
             }            
         }
     }
     
     public void run() throws Exception {
-        System.out.println("Generating random text...");
+        Configuration.getOutput().println("Generating random text...");
         String generatedText;
         switch (Configuration.getTextSource()) {
         case OPEN_AI: 
@@ -70,35 +69,35 @@ public class MorseCodePlayer {
             try {
                 generatedText = new String(Files.readAllBytes(Paths.get(filename)));                
             } catch (Exception e) {
-                System.out.println("Cannot find the file " + filename);
+                Configuration.getOutput().println("Cannot find the file " + filename);
                 throw new Exception(e);
             }
             break;
         default:
             throw new RuntimeException("Invalid " + Configuration.APP_TEXTSOURCE +": " + Configuration.getTextSource());
-        }       
+        }
 
-        System.out.println("Generated text:");
-        System.out.println(generatedText);
+        Configuration.getOutput().println("Generated text:");
+        Configuration.getOutput().println(generatedText);
         
         generatedText = generatedText.replaceAll("\\\\n", " ");
         generatedText = generatedText.toUpperCase();
         
         generatedText = Utils.getCleanInput(generatedText);
-        System.out.println("Cleansed text: ");
-        System.out.println(generatedText);
-        
-        System.out.println("Text statistics:");
+        Configuration.getOutput().println("Cleansed text: ");
+        Configuration.getOutput().println(generatedText);
+
+        Configuration.getOutput().println("Text statistics:");
         printStats(generatedText); 
         
         saveText(generatedText);
         
         Scanner scanner = new Scanner(System.in);
-        System.out.print("<Press return to start>");
+        Configuration.getOutput().print("<Press return to start>");
         scanner.nextLine();
         scanner.close();
-        
-        System.out.println("Starting in " + Configuration.getStartDelay() + " seconds...");
+
+        Configuration.getOutput().println("Starting in " + Configuration.getStartDelay() + " seconds...");
         
         Thread.sleep(Configuration.getStartDelay() * 1000);
         
@@ -106,7 +105,9 @@ public class MorseCodePlayer {
     }
     
     public static void main(String[] args) throws Exception {
+        Configuration.setOutput(new ConsoleOutput());
         Configuration.loadProperties();
+
         new MorseCodePlayer().run();
     }
 

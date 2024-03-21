@@ -34,8 +34,6 @@ public class MainPanel extends JPanel {
 
     private JTextArea textArea = new JTextArea();
 
-    private Output output;
-
     private String generatedText = "";
 
     public MainPanel(MorseCodePlayer player) {
@@ -45,6 +43,7 @@ public class MainPanel extends JPanel {
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textArea.setBackground(this.getBackground());
+        Configuration.setOutput(new TextAreaOutput(textArea));
         JScrollPane scroll = new JScrollPane(textArea);
         JPanel textAreaPanel = new JPanel();
         textAreaPanel.setLayout(new BorderLayout());
@@ -62,7 +61,6 @@ public class MainPanel extends JPanel {
 
         this.player = player;
 
-        output = new TextAreaOutput(textArea);
         println("Hello...");
     }
 
@@ -147,7 +145,7 @@ public class MainPanel extends JPanel {
     }
 
     private void println(String text) {
-        output.println(text);
+        Configuration.getOutput().println(text);
     }
 
     private void play(String generatedText) {

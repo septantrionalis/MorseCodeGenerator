@@ -1,12 +1,15 @@
 package org.tdod;
 
 import com.formdev.flatlaf.FlatLightLaf;
+import org.tdod.api.impl.ConsoleOutput;
+import org.tdod.api.impl.TextAreaOutput;
 import org.tdod.ui.ConfigurationPanel;
 import org.tdod.ui.MainPanel;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.net.ConnectException;
 
 public class MorseCodePlayerUi {
 
@@ -43,6 +46,8 @@ public class MorseCodePlayerUi {
     }
 
     public static void main(String args[]){
+        Configuration.setOutput(new ConsoleOutput());
+
         try {
             // UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
             Configuration.loadProperties();

@@ -1,5 +1,6 @@
 package org.tdod;
 
+import org.tdod.api.Output;
 import org.tdod.model.enums.TextSourceEnum;
 import org.tdod.model.enums.WpmEnum;
 
@@ -32,7 +33,9 @@ public class Configuration {
     private static String model = "gpt-3.5-turbo";
     private static String filename = "space_weather.txt";
     private static int startDelay = 5;
-    
+
+    private static Output output;
+
     private Configuration() {
     }
 
@@ -190,6 +193,12 @@ public class Configuration {
     public static void setStartDelay(int startDelay) {
         Configuration.startDelay = startDelay;
     }
-    
-    
+
+    public static Output getOutput() {
+        return output;
+    }
+
+    public static void setOutput(Output output) {
+        Configuration.output = output;
+    }
 }
