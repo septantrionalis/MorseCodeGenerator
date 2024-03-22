@@ -46,8 +46,6 @@ public abstract class MorseCodePlayer extends JPanel {
     }
 
     protected String generateText() throws Exception {
-        println("Generating random text...");
-
         String generatedText = "";
 
         switch (Configuration.getTextSource()) {

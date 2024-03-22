@@ -89,6 +89,9 @@ public class MainPanel extends MorseCodePlayer {
     private String initialize() {
         String generatedText;
         try {
+            println("Generating random text...");
+            Thread t1 = new Thread(new RunnableImpl());
+            t1.start();
             generatedText = generateText();
         
             mainButton.setText("Run");
@@ -134,5 +137,13 @@ public class MainPanel extends MorseCodePlayer {
         state = PlayerRunStateEnum.INITIALIZE;
 
         
+    }
+    
+    private class RunnableImpl implements Runnable {
+        
+        public void run() {
+            textArea.update(textArea.getGraphics());
+            textArea.setCaretPosition(textArea.getDocument().getLength());                
+        }
     }
 }

@@ -14,6 +14,8 @@ public class MorseCodePlayerConsole extends MorseCodePlayer {
     public AudioPlayer audioPlayer = new DefaultAudioPlayer();
 
     public void run() throws Exception {
+        println("Generating random text...");
+
         String generatedText = generateText();
         
         Scanner scanner = new Scanner(System.in);
