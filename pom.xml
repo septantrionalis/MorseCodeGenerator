@@ -19,7 +19,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>org.tdod.MorseCodePlayer</mainClass>
+                            <mainClass>org.tdod.MorseCodePlayerUi</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

@@ -50,8 +50,12 @@ public class MainPanel extends MorseCodePlayer {
         mainButton = new JButton("Generate Text");
         mainButton.addActionListener(e -> mainButtonHandler());
         buttonPanel.add(mainButton);
-        this.add(buttonPanel, BorderLayout.SOUTH);
 
+        JButton clearButton = new JButton("Clear");
+        clearButton.addActionListener(e -> clearButtonHandler());
+        buttonPanel.add(clearButton);
+
+        this.add(buttonPanel, BorderLayout.SOUTH);
 
         println("Hello...");
     }
@@ -69,12 +73,15 @@ public class MainPanel extends MorseCodePlayer {
                     stop();
                     break;
             }
-            // player.run();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    private void clearButtonHandler() {
+        textArea.setText("");
+    }
+    
     private String initialize() {
         String generatedText;
         try {
