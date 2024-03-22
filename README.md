@@ -16,7 +16,7 @@ Click on the "Configuration" tab and add your OpenAI key into the "OpenAI API Ke
 ![Screenshot 2024-03-21 at 10 18 08 PM](https://github.com/septantrionalis/MorseCodeGenerator/assets/16886560/789c754d-b610-45d3-a877-9a7244f83af1)
 
 Modify other parameters as needed.\
-Click on the "Main" tab once your configuration is set.\
+Go back to the "Main" tab once your configuration is set.\
 Click on the "Generate Text" button at the bottom to generate your random text. When this is done, the button will change to "Run". Click on this to start the morse code.\
 
 # Terminal Version
