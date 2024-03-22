@@ -15,6 +15,24 @@ Click on the "Configuration" tab to modify the configuration.
 
 ![Screenshot 2024-03-21 at 10 18 08 PM](https://github.com/septantrionalis/MorseCodeGenerator/assets/16886560/789c754d-b610-45d3-a877-9a7244f83af1)
 
+Paste your OpenAI key into the "OpenAI API Key".\
+Modify other parameters as needed.\
+
+## Configuration File
+**api.ai.key**: The OpenAI Api key. This is needed to generate a random response.\
+**api.ai.textprompt**: The prompt to send to OpenAI. Default: "a lengthy weather report"\
+**api.ai.url**: The api URL of openapi. Default: https://api.openai.com/v1/chat/completions \
+**apiapi.ai.model**: The ai model to use. Default: gpt-3.5-turbo\
+**app.wpm**: The WPM to send the morse code. Default: 23. Valid Values: 5 to 30.\
+**app.textsource**: The source from which to generate the text. Default: mock. Valid values are:
+  * open_ai: Generate the source text from open ai. All of the "api.ai.*" values need to be filled in.
+  * file: Generate morse code from a file located in the "history" directory. app.filename will need to be set.
+  * paris: Just sent the word "paris". This was used to get morse code timings.
+  * mock: A hard coded value used for testing.
+
+**app.filename**: used when "app.textsource" property file is set to file. This is the file to read from. Default: space_weather.txt\
+**app.startdelay**: The number of seconds to delay sending morse code after hitting return. Default: 5. Not used in the UI version\
+**audio.frequency**: The audio frequency. Default: 600
 
 
 # Terminal Version
