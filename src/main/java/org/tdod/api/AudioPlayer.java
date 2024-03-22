@@ -1,7 +1,9 @@
 package org.tdod.api;
 
-public interface AudioPlayer {
+public interface AudioPlayer extends Runnable {
 
-    void play(String input) throws Exception;
+    void setMessage(String input) throws Exception;
+    void terminate();
 
+    
 }

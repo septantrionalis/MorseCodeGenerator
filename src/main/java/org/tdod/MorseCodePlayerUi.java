@@ -13,7 +13,7 @@ import java.net.ConnectException;
 
 public class MorseCodePlayerUi {
 
-    private MorseCodePlayer player = new MorseCodePlayer();
+    private MorseCodePlayerConsole player = new MorseCodePlayerConsole();
 
     private MorseCodePlayerUi() {
     }

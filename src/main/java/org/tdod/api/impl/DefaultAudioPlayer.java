@@ -19,67 +19,94 @@ public class DefaultAudioPlayer implements AudioPlayer {
     private static List<ToneBuffer> toneBuffers = new ArrayList<>();
     private static final HashMap<Character, String> morseCodeMap = MorseCodeMap.getMap();
 
+    private String input;
+    private boolean terminate = false;
+    
+    
     public DefaultAudioPlayer() {
         calculateBeep(Configuration.getWpm().getDot());
         calculateBeep(Configuration.getWpm().getDash());
     }
 
     @Override
-    public void play(String input) throws Exception {
-        AudioFormat format = new AudioFormat(8000, 8, 1, true, false);
-        SourceDataLine line = AudioSystem.getSourceDataLine(format);
-        line.open(format);
-        line.start();
+    public void setMessage(String input) throws Exception {
+        this.input = input;
+    }
 
-        for (int count = 0; count < 1; count++) {
+    @Override
+    public void run() {
+        terminate = false;
+        try {
+            AudioFormat format = new AudioFormat(8000, 8, 1, true, false);
+            SourceDataLine line = AudioSystem.getSourceDataLine(format);
+            line.open(format);
+            line.start();
 
-            long start = System.currentTimeMillis();
+            for (int count = 0; count < 1; count++) {
 
-            for (char c : input.toCharArray()) {
-                String morseCode = morseCodeMap.get(c);
-                if (morseCode != null) {
-                    System.out.print(c);
-                    for (char symbol : morseCode.toCharArray()) {
-                        if (symbol == '.') {
-                            byte[] toneBuffer = toneBuffers.get(0).getToneBuffer();
-                            line.write(toneBuffer, 0, toneBuffer.length);
-                            line.drain();
-                            Thread.sleep(Configuration.getWpm().getDot());
-                        } else if (symbol == '-') {
-                            byte[] toneBuffer = toneBuffers.get(1).getToneBuffer();
-                            line.write(toneBuffer, 0, toneBuffer.length);
-                            line.drain();
-                            Thread.sleep(Configuration.getWpm().getDot());
-                        } else if (symbol == '/') {
-                            try {
-                                Thread.sleep(Configuration.getWpm().getWordPause());
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
+                long start = System.currentTimeMillis();
+
+                for (char c : input.toCharArray()) {
+                    if (terminate) {
+                        line.drain();
+                        line.stop();
+                        line.close();
+                        return;
+                    }
+                    String morseCode = morseCodeMap.get(c);
+                    if (morseCode != null) {
+                        Configuration.getOutput().print("" + c);
+                        for (char symbol : morseCode.toCharArray()) {
+                            if (symbol == '.') {
+                                byte[] toneBuffer = toneBuffers.get(0).getToneBuffer();
+                                line.write(toneBuffer, 0, toneBuffer.length);
+                                line.drain();
+                                Thread.sleep(Configuration.getWpm().getDot());
+                            } else if (symbol == '-') {
+                                byte[] toneBuffer = toneBuffers.get(1).getToneBuffer();
+                                line.write(toneBuffer, 0, toneBuffer.length);
+                                line.drain();
+                                Thread.sleep(Configuration.getWpm().getDot());
+                            } else if (symbol == '/') {
+                                try {
+                                    Thread.sleep(Configuration.getWpm().getWordPause());
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
+                        try {
+                            Thread.sleep(Configuration.getWpm().getCharPause());
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
-                    try {
-                        Thread.sleep(Configuration.getWpm().getCharPause());
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                }
+
+                long end = System.currentTimeMillis();
+                float sec = (end - start) / 1000F;
+                System.out.println();
+                System.out.println("TIME = " + sec + " seconds.");
+                
+                if (Configuration.getTextSource().equals(TextSourceEnum.PARIS)) {
+                    System.out.println("WPM = " + 60 / sec);                
                 }
             }
 
-            long end = System.currentTimeMillis();
-            float sec = (end - start) / 1000F;
-            System.out.println();
-            System.out.println("TIME = " + sec + " seconds.");
-            
-            if (Configuration.getTextSource().equals(TextSourceEnum.PARIS)) {
-                System.out.println("WPM = " + 60 / sec);                
-            }
+            line.stop();
+            line.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        line.stop();
-        line.close();
     }
 
+    @Override
+    public void terminate() {
+        terminate = true;
+    }
+
+    
     private void calculateBeep(int duration) {
         try {
 
