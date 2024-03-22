@@ -5,9 +5,10 @@ This is how the application is packaged by default. To run,
 
 Java 1.8 is required. May work with higher versions, but was coded using Java 1.8.\
 Generate an OpenAI key from https://platform.openai.com/api-keys \
-Go into the "dist" directory and type "./run.sh" or "./run.bat".
+Go into the "dist" directory and type "./run.sh" or "./run.bat".\
+\
+The following screen will open:\
 
-The following screen will open:
 ![Screenshot 2024-03-21 at 10 15 37 PM](https://github.com/septantrionalis/MorseCodeGenerator/assets/16886560/f1bba53b-3125-434e-a4f7-fb49e709e0bf)
 
 
