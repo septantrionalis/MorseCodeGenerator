@@ -11,11 +11,10 @@ The following screen will open:
 
 ![Screenshot 2024-03-21 at 10 15 37 PM](https://github.com/septantrionalis/MorseCodeGenerator/assets/16886560/f1bba53b-3125-434e-a4f7-fb49e709e0bf)
 
-Click on the "Configuration" tab to modify the configuration.
+Click on the "Configuration" tab and add your OpenAI key into the "OpenAI API Key" text field.
 
 ![Screenshot 2024-03-21 at 10 18 08 PM](https://github.com/septantrionalis/MorseCodeGenerator/assets/16886560/789c754d-b610-45d3-a877-9a7244f83af1)
 
-Paste your OpenAI key into the "OpenAI API Key".\
 Modify other parameters as needed.\
 
 ## Configuration File
