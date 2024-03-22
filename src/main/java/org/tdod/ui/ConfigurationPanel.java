@@ -28,13 +28,15 @@ import java.util.stream.Collectors;
 
 public class ConfigurationPanel extends JPanel {
 
+    private static final long serialVersionUID = -1553295350137292758L;
+
     private JTextField apiKeyTextField;
     private JTextField apiPromptTextField;
     private JTextField apiUrlTextField;
     private JTextField openAiModelTextField;
     private JComboBox<String> wpmComboBox;
     private JComboBox<String> textSourceComboBox;
-    private JComboBox textFilenameComboBox;
+    private JComboBox<String> textFilenameComboBox;
     private JTextField startDelayTextField;
     private JTextField audioFrequencyTextField;
 
@@ -74,7 +76,7 @@ public class ConfigurationPanel extends JPanel {
 
         row++;
         createLabel(gbc, "WPM:", 0, row);
-        wpmComboBox = new JComboBox(WpmEnum.getDisplayNames());
+        wpmComboBox = new JComboBox<String>(WpmEnum.getDisplayNames());
         gbc.gridx = 1;
         gbc.gridy = row;
         outerPanel.add(wpmComboBox, gbc);
@@ -82,7 +84,7 @@ public class ConfigurationPanel extends JPanel {
 
         row++;
         createLabel(gbc, "Text Source:", 0, row);
-        textSourceComboBox = new JComboBox(TextSourceEnum.getConfigNames());
+        textSourceComboBox = new JComboBox<String>(TextSourceEnum.getConfigNames());
         gbc.gridx = 1;
         gbc.gridy = row;
         outerPanel.add(textSourceComboBox, gbc);
@@ -91,7 +93,7 @@ public class ConfigurationPanel extends JPanel {
         row++;
         createLabel(gbc, "Text Filename:", 0, row);
         String[] historyFiles = getListOfHistoryFiles().toArray(new String[0]);
-        textFilenameComboBox = new JComboBox(historyFiles);
+        textFilenameComboBox = new JComboBox<String>(historyFiles);
         textFilenameComboBox.setSelectedItem(Configuration.getFilename());
         gbc.gridx = 1;
         gbc.gridy = row;
@@ -125,7 +127,7 @@ public class ConfigurationPanel extends JPanel {
                 String selectedValue = textFilenameComboBox.getSelectedItem().toString();
                 outerPanel.remove(textFilenameComboBox);
                 String[] historyFiles = getListOfHistoryFiles().toArray(new String[0]);
-                textFilenameComboBox = new JComboBox(historyFiles);
+                textFilenameComboBox = new JComboBox<String>(historyFiles);
                 try {
                     textFilenameComboBox.setSelectedItem(selectedValue);
                 } catch (Exception ex) {

@@ -1,42 +1,32 @@
 package org.tdod.ui;
 
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
 import org.apache.commons.lang3.StringUtils;
 import org.tdod.Configuration;
-import org.tdod.MorseCodeMap;
 import org.tdod.MorseCodePlayer;
 import org.tdod.MorseCodePlayerConsole;
 import org.tdod.api.AudioPlayer;
-import org.tdod.api.Output;
-import org.tdod.api.TextGenerator;
 import org.tdod.api.impl.DefaultAudioPlayer;
-import org.tdod.api.impl.OpenAiTextGenerator;
 import org.tdod.api.impl.TextAreaOutput;
 import org.tdod.model.enums.PlayerRunStateEnum;
-import org.tdod.utils.Utils;
-
-import javax.swing.*;
-import java.awt.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MainPanel extends MorseCodePlayer {
 
+    private static final long serialVersionUID = -7553255361043368892L;
+
     private AudioPlayer audioPlayer = new DefaultAudioPlayer();
-
-    private static final HashMap<Character, String> morseCodeMap = MorseCodeMap.getMap();
-    private TextGenerator openAiApi = new OpenAiTextGenerator();
-
-    private MorseCodePlayerConsole player;
-
     private JButton mainButton;
     private PlayerRunStateEnum state = PlayerRunStateEnum.INITIALIZE;
-
     private JTextArea textArea = new JTextArea();
-
     private String generatedText = "";
-
     private Thread thread;
     
     public MainPanel(MorseCodePlayerConsole player) {
@@ -62,7 +52,6 @@ public class MainPanel extends MorseCodePlayer {
         buttonPanel.add(mainButton);
         this.add(buttonPanel, BorderLayout.SOUTH);
 
-        this.player = player;
 
         println("Hello...");
     }

@@ -9,8 +9,8 @@ import org.tdod.api.impl.DefaultAudioPlayer;
 
 public class MorseCodePlayerConsole extends MorseCodePlayer {
 
-
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -5307550506748039480L;
+    
     public AudioPlayer audioPlayer = new DefaultAudioPlayer();
 
     public void run() throws Exception {
