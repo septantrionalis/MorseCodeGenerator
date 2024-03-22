@@ -1,6 +1,14 @@
 package org.tdod.utils;
 
+import org.tdod.MorseCodeMap;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Utils {
+
+    private void Utils() {
+    }
 
     public static boolean isInteger(String s) {
         try {

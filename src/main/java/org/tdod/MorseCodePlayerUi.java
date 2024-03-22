@@ -1,19 +1,15 @@
 package org.tdod;
 
-import java.awt.event.KeyEvent;
-
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JTabbedPane;
-import javax.swing.UIManager;
-
+import com.formdev.flatlaf.FlatLightLaf;
 import org.tdod.api.impl.ConsoleOutput;
+import org.tdod.api.impl.TextAreaOutput;
 import org.tdod.ui.ConfigurationPanel;
 import org.tdod.ui.MainPanel;
 
-import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.net.ConnectException;
 
 public class MorseCodePlayerUi {
 

@@ -17,9 +17,8 @@ import org.tdod.model.enums.TextSourceEnum;
 
 public abstract class MorseCodePlayer extends JPanel {
     
-    private static final long serialVersionUID = -4124990714841347889L;
-
     final HashMap<Character, String> morseCodeMap = MorseCodeMap.getMap();
+
     public TextGenerator openAiApi = new OpenAiTextGenerator();
 
     protected String getCleanInput(String input) {
