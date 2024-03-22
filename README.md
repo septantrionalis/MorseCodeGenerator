@@ -1,5 +1,19 @@
 This java application will generate random weather reports, bulletins, etc from OpenAI and create morse code audio from it. Any generated messages will be saved into the "history" directory. The entire app can be run in a GUI (recommended) or in a terminal.
 
+# UI Version
+This is how the application is packaged by default. To run, 
+
+Java 1.8 is required. May work with higher versions, but was coded using Java 1.8.\
+Generate an OpenAI key from https://platform.openai.com/api-keys \
+Go into the "dist" directory and type "./run.sh" or "./run.bat".
+
+The following screen will open:
+![Screenshot 2024-03-21 at 10 15 37 PM](https://github.com/septantrionalis/MorseCodeGenerator/assets/16886560/f1bba53b-3125-434e-a4f7-fb49e709e0bf)
+
+
+![Screenshot 2024-03-21 at 10 18 08 PM](https://github.com/septantrionalis/MorseCodeGenerator/assets/16886560/789c754d-b610-45d3-a877-9a7244f83af1)
+
+
 
 # Terminal Version
 All configuration is done in the "config.properties" file.
