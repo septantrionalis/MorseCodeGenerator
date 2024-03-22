@@ -17,9 +17,10 @@ Click on the "Configuration" tab and add your OpenAI key into the "OpenAI API Ke
 
 Modify other parameters as needed.\
 Go back to the "Main" tab once your configuration is set.\
-Click on the "Generate Text" button at the bottom to generate your random text. When this is done, the button will change to "Run". Click on this to start the morse code.\
+Click on the "Generate Text" button at the bottom to generate your random text. When this is done, the button will change to "Run". Click on this to start the morse code.
 
 # Terminal Version
+The application is not packaged for this to run, but the documentation is left here just incase anyone wants to repackage.\
 All configuration is done in the "config.properties" file.
 
 ## To Run
