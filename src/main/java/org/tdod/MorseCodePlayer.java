@@ -15,6 +15,9 @@ import org.tdod.api.TextGenerator;
 import org.tdod.api.impl.OpenAiTextGenerator;
 import org.tdod.model.enums.TextSourceEnum;
 
+/**
+ * The starting point for the UI version of the player.
+ */
 public abstract class MorseCodePlayer extends JPanel {
     
     final HashMap<Character, String> morseCodeMap = MorseCodeMap.getMap();
